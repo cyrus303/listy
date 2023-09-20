@@ -1,20 +1,20 @@
 import React, {useState} from 'react';
+import {InputGroup, Form, Button} from 'react-bootstrap';
 
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import InputGroup from 'react-bootstrap/InputGroup';
+type SearchBoxProps = {
+  setSearchText: React.Dispatch<React.SetStateAction<string>>;
+};
 
-const SearchBox = ({setSearchText}) => {
+const SearchBox: React.FC<SearchBoxProps> = ({setSearchText}) => {
   const [inputText, setInputText] = useState<string>('');
 
-  const handleSubmit = (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setSearchText(inputText);
   };
+
   return (
-    <>
+    <form onSubmit={(e) => handleSubmit(e)}>
       <InputGroup className="mb-3">
         <Form.Control
           placeholder="Movie Name"
@@ -26,13 +26,14 @@ const SearchBox = ({setSearchText}) => {
         <Button
           type="submit"
           variant="outline-secondary"
+          className="ml-2"
           id="button-addon2"
-          onClick={handleSubmit}
+          style={{marginLeft: '1rem'}}
         >
           Add
         </Button>
       </InputGroup>
-    </>
+    </form>
   );
 };
 
